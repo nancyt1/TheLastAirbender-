@@ -18,6 +18,7 @@ import webapp2
 import jinja2
 import logging
 import os
+from google.appengine.api import users
 
 jinja_environment = jinja2.Environment(loader=jinja2.FileSystemLoader(os.path.dirname(__file__)))
 
@@ -26,6 +27,30 @@ class MainHandler(webapp2.RequestHandler):
         template = jinja_environment.get_template('templates/homepage.html')
         self.response.write(template.render())
 
+class DoctorHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('templates/doctoraccount.html')
+        self.response.write(template.render())
+
+class PatientHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('templates/patientaccount.html')
+        self.response.write(template.render())
+
+class DocloginHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('templates/doctorlogin.html')
+        self.response.write(template.render())
+
+class PatloginHandler(webapp2.RequestHandler):
+    def get(self):
+        template = jinja_environment.get_template('templates/patientlogin.html')
+        self.response.write(template.render())
+
 app = webapp2.WSGIApplication([
-    ('/', MainHandler)
+    ('/', MainHandler),
+    ('/doctoraccount', DoctorHandler),
+    ('/patientaccount', PatientHandler),
+    ('/doctorlogin', DocloginHandler),
+    ('/patientlogin', PatloginHandler),
 ], debug=True)
